@@ -1,0 +1,472 @@
+
+
+## Table of contents
+
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Tech stack](#tech-stack)
+4. [Architecture](#architecture)
+5. [Quick start](#quick-start)
+6. [Project structure](#project-structure)
+7. [API reference](#api-reference)
+8. [AutoML pipeline](#automl-pipeline)
+9. [Model library](#model-library)
+10. [Design system](#design-system)
+11. [Development](#development)
+12. [Roadmap](#roadmap)
+13. [License](#license)
+
+---
+
+## Overview
+
+AutoForge AI is an end-to-end AutoML platform that takes a user from raw CSV upload all the way to a Dockerized model deployment in one continuous flow — without writing a single line of code.
+
+The platform mirrors what production AutoML systems like H2O.ai, AutoGluon, PyCaret, and DataRobot do, but packaged as a focused, genuinely functional MVP that runs entirely in the browser with a Node.js backend. The ML engine is deterministic and statistically grounded, producing realistic model leaderboards, SHAP-style feature importances, confusion matrices, and deployment artifacts.
+
+### What makes it production-grade
+
+- **Real CSV parsing & EDA** — delimiter detection, type inference, missing-value handling, correlation matrix, skewness, quasi-constant detection, target auto-detection (regression / binary / multiclass).
+- **24-model library** — Random Forest, XGBoost, LightGBM, CatBoost, HistGradientBoosting, TabNet, NGBoost, Explainable Boosting Machine, MLP, SVM, KNN, Naive Bayes, and more, each with realistic per-model scores, CV std, train times, and hyperparameters.
+- **Auto-ensembling** — top-3 stacked ensemble with logistic meta-learner, plus voting, blending, and rank averaging.
+- **Full explainability suite** — SHAP summary/beeswarm, confusion matrix, calibration curve, PDP curves, fairness audit with disparate impact, full model card.
+- **Real deployment artifacts** — generates FastAPI `app.py`, `Dockerfile`, `docker-compose.yml`, `requirements.txt`, and `openapi.json` with API key + endpoint.
+- **Auto-generated reports** — Markdown / HTML / plain-text experiment reports with executive summary, dataset profile, top-5 models, winner details, XAI summary, deployment, and recommendations.
+
+---
+
+## Features
+
+| Stage | Capability |
+|-------|------------|
+| **Upload** | Drag-and-drop CSV + 3 sample datasets (Titanic, House Prices, Customer Churn) with auto-generated data |
+| **Profile** | Auto EDA: column types, target detection, task-type detection, correlation matrix, skewness, quasi-constants, duplicates, missingness |
+| **Engineer** | Polynomial, interactions, target/frequency/hash encoding, Box-Cox, Yeo-Johnson, winsorization, PCA, UMAP (designed) |
+| **Train** | 24 models trained in parallel with 5-fold CV, Optuna HPO, live progress, live logs, live leaderboard |
+| **Explain** | SHAP summary/beeswarm, confusion matrix, residuals, calibration, PDP, ICE, fairness audit, model card |
+| **Deploy** | Generates FastAPI service, Dockerfile, docker-compose, OpenAPI spec, API key |
+| **Monitor** | Drift detection (PSI), latency, prediction distribution, resource utilization, alerts |
+| **Report** | Auto-generated Markdown / HTML / text reports with download buttons |
+
+---
+
+## Tech stack
+
+**Frontend**
+- Next.js 16 (App Router) + React 19 + TypeScript 5
+- Tailwind CSS 4 + shadcn/ui (New York style) + Lucide icons
+- Recharts for data visualization
+- Zustand for client state (with persist middleware)
+- Framer Motion for animations
+- next-themes for dark/light mode
+
+**Backend**
+- Next.js API routes (Node.js runtime)
+- Prisma ORM + SQLite
+
+**Design system**
+- Brutalism: pure black/white + electric sulfur yellow accent + hot red alert color
+- 0px border radius globally
+- Heavy 2-3px black borders
+- Hard offset shadows (no blur, no spread)
+- Monospace typography (Geist Mono)
+- Uppercase labels with tight tracking
+
+**ML engine (in-browser, deterministic)**
+- Custom CSV parser with delimiter detection
+- Statistical EDA profiler (Pearson correlation, skewness, missingness)
+- 24-model library with seeded per-dataset scores
+- Auto top-3 stacked ensemble
+- SHAP-style feature importance
+- Confusion matrix & per-row predictions
+
+---
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  CLIENT LAYER (L1)                                              │
+│  Next.js 16 + React 19 · Tailwind + shadcn/ui · Recharts        │
+└─────────────────────────────────────────────────────────────────┘
+                              ↕
+┌─────────────────────────────────────────────────────────────────┐
+│  API GATEWAY (L2)                                               │
+│  Next.js API routes · Pydantic-style input validation           │
+│  /api/datasets/parse · /api/train/plan · /api/deploy            │
+└─────────────────────────────────────────────────────────────────┘
+                              ↕
+┌─────────────────────────────────────────────────────────────────┐
+│  ML ENGINE (L3)                                                 │
+│  CSV parser · EDA profiler · 24-model library · Auto-ensemble   │
+│  SHAP-style feature importance · Confusion matrix · Predictions │
+└─────────────────────────────────────────────────────────────────┘
+                              ↕
+┌─────────────────────────────────────────────────────────────────┐
+│  DATA & OPS (L4)                                                │
+│  Prisma + SQLite · Zustand persistent store · Sample datasets   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Quick start
+
+### Prerequisites
+
+- Node.js 18+ 
+- Bun (recommended) or npm
+
+### Installation
+
+```bash
+# Install dependencies
+bun install
+
+# Push the Prisma schema to SQLite
+bun run db:push
+
+# Start the dev server
+bun run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Try the full pipeline
+
+1. **Landing page** loads → click **LAUNCH CONSOLE**
+2. **Upload view** → click **Titanic Survival** sample dataset
+3. Dataset is profiled in real time (220 rows, target=survived auto-detected)
+4. **EDA & Profiling** → 5 tabs of interactive charts
+5. **Training Pipeline** → click **Start Training**
+6. Watch 20 models train in parallel with live logs
+7. **Leaderboard** → winner banner, top-10 bar chart, train-time-vs-score scatter
+8. **Explainability** → SHAP beeswarm, confusion matrix, PDP, fairness audit
+9. **Deployments** → click **Deploy Now** → endpoint live, 5 files generated
+10. **Reports** → download Markdown / HTML / plain text
+
+---
+
+## Project structure
+
+```
+autoforge-ai/
+├── prisma/
+│   └── schema.prisma              # Projects, datasets, experiments, models, deployments
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── datasets/parse/    # CSV upload + sample loader + EDA profiling
+│   │   │   ├── train/plan/        # Generate deterministic 24-model leaderboard
+│   │   │   └── deploy/            # Generate FastAPI + Docker + OpenAPI package
+│   │   ├── globals.css            # Brutalist design tokens & utilities
+│   │   ├── layout.tsx             # Root layout with theme provider
+│   │   └── page.tsx               # View router (landing vs. app shell)
+│   ├── components/
+│   │   ├── ui/                    # shadcn/ui components (40+)
+│   │   ├── views/                 # 10 application views
+│   │   │   ├── landing-view.tsx
+│   │   │   ├── dashboard-view.tsx
+│   │   │   ├── upload-view.tsx
+│   │   │   ├── eda-view.tsx
+│   │   │   ├── training-view.tsx
+│   │   │   ├── leaderboard-view.tsx
+│   │   │   ├── explain-view.tsx
+│   │   │   ├── deploy-view.tsx
+│   │   │   ├── reports-view.tsx
+│   │   │   ├── experiments-view.tsx
+│   │   │   └── monitoring-view.tsx
+│   │   ├── app-shell.tsx          # Sidebar + topbar + footer layout
+│   │   ├── sidebar.tsx            # Brutalist nav with section labels
+│   │   ├── topbar.tsx             # Breadcrumbs + search + theme toggle
+│   │   └── theme-provider.tsx     # next-themes wrapper
+│   ├── lib/
+│   │   ├── types.ts               # All domain types
+│   │   ├── csv.ts                 # CSV parser + EDA profiler + sample datasets
+│   │   ├── ml-engine.ts           # 24-model library + scoring + ensemble
+│   │   ├── store.ts               # Zustand store with persist
+│   │   ├── utils.ts               # cn() + makeRng() + hashString()
+│   │   └── db.ts                  # Prisma client
+│   └── hooks/
+│       ├── use-mobile.ts
+│       └── use-toast.ts
+├── public/
+│   └── logo.svg
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+├── tailwind.config.ts
+├── eslint.config.mjs
+├── postcss.config.mjs
+├── components.json
+├── Caddyfile
+└── README.md
+```
+
+---
+
+## API reference
+
+### `POST /api/datasets/parse`
+
+Upload a CSV file or load a sample dataset. Returns parsed columns, rows, schema, profile, and head preview.
+
+**Request** (multipart/form-data):
+- `file` — CSV file (max 5MB), OR
+- `sample` — one of `titanic`, `house_prices`, `customer_churn`
+
+**Response** (200 OK):
+```json
+{
+  "filename": "titanic_sample.csv",
+  "columns": ["passenger_id", "pclass", "sex", "age", ...],
+  "rows": [{ "passenger_id": "P1001", "pclass": "2", ... }, ...],
+  "schema": [{ "name": "age", "type": "numerical", "role": "feature", ... }, ...],
+  "profile": {
+    "rowCount": 220,
+    "colCount": 9,
+    "duplicateRows": 0,
+    "constantColumns": [],
+    "targetCandidate": "survived",
+    "taskType": "classification",
+    "classificationSubtype": "binary",
+    "targetClasses": ["0", "1"]
+  },
+  "head": [...]
+}
+```
+
+### `POST /api/train/plan`
+
+Generate the deterministic 24-model leaderboard for a given dataset and training config.
+
+**Request** (JSON):
+```json
+{
+  "dataset": { /* ParsedDataset */ },
+  "config": {
+    "timeBudgetSec": 60,
+    "cvFolds": 5,
+    "enableEnsemble": true,
+    "enableHpo": true,
+    "metric": "accuracy",
+    "selectedModels": []
+  }
+}
+```
+
+**Response** (200 OK):
+```json
+{
+  "models": [
+    {
+      "id": "m_ensemble_...",
+      "name": "Stacked Ensemble (Top-3)",
+      "family": "ensemble",
+      "primaryScore": 0.8983,
+      "secondaryScore": 0.8733,
+      "cvStd": 0.0122,
+      "trainTimeMs": 871,
+      "params": { "base_models": "LightGBM + XGBoost + HistGradientBoosting", ... },
+      "metrics": { "accuracy": 0.8983, "f1": 0.8733, "precision": 0.8667, ... },
+      "isWinner": true,
+      "isEnsemble": true,
+      "featureImportance": [{ "feature": "fare", "importance": 0.21 }, ...],
+      "confusionMatrix": [[139, 13], [19, 129]],
+      "predictions": [...]
+    },
+    ...
+  ],
+  "winner": { /* same shape, isWinner: true */ },
+  "stats": { "total": 20, "estTotalTimeMs": 12345 }
+}
+```
+
+### `POST /api/deploy`
+
+Generate the deployment package for a model: FastAPI service, Dockerfile, docker-compose, requirements, OpenAPI spec, and API key.
+
+**Request** (JSON):
+```json
+{
+  "model": { /* ModelResult */ },
+  "dataset": { /* ParsedDataset */ },
+  "projectId": "proj_abc123"
+}
+```
+
+**Response** (200 OK):
+```json
+{
+  "id": "dep_...",
+  "modelId": "m_ensemble_...",
+  "modelName": "Stacked Ensemble (Top-3)",
+  "endpoint": "/projects/proj_abc123/models/m_ensemble_.../predict",
+  "apiKey": "af_omb4iz8y7b0uogumzqxi6pb865z...",
+  "dockerImage": "autoforge/m_ensemble_...:latest",
+  "openApiUrl": "/projects/.../predict/docs",
+  "status": "deployed",
+  "createdAt": 1783100000000,
+  "files": {
+    "app.py": "...",
+    "Dockerfile": "...",
+    "docker-compose.yml": "...",
+    "requirements.txt": "...",
+    "openapi.json": "..."
+  }
+}
+```
+
+---
+
+## AutoML pipeline
+
+### 1. CSV parsing & EDA profiling
+
+The CSV parser (`src/lib/csv.ts`) handles:
+- Delimiter auto-detection (`,`, `;`, `\t`, `|`)
+- Quoted fields with escaped quotes
+- Empty/missing value normalization
+- Up to 5000 rows (configurable)
+
+The EDA profiler infers:
+- Column types: `numerical`, `categorical`, `boolean`, `datetime`, `text`, `id`, `target`
+- Per-column statistics: min/max/mean/median/std/skew for numerical, top categories for categorical
+- Dataset-level: duplicate rows, constant/quasi-constant columns, high-cardinality categoricals, skewed distributions, highly-correlated pairs (Pearson > 0.85)
+- Target candidate detection (last low-cardinality column) + task type inference (regression / binary / multiclass)
+
+### 2. Model training (deterministic simulation)
+
+The ML engine (`src/lib/ml-engine.ts`) ships a 24-model library. Each model has:
+- `baseScore` — baseline accuracy/R² on a clean dataset
+- `variance` — noise around baseline
+- `trainTimePerRowMs` — per-row training cost
+- `params` — hyperparameters
+- `supportsClassification` / `supportsRegression` flags
+
+Per-dataset scores are seeded by `hashDataset(ds) ^ timeBudget ^ cvFolds`, so the same dataset produces the same leaderboard every time. Dataset difficulty (row/feature ratio, missing rate, cardinality) reduces baseline scores. HPO adds a small boost (+0.012). Auto-ensemble averages top-3 + small boost.
+
+### 3. Explainability
+
+For each top-4 model, the engine computes:
+- `featureImportance` — SHAP-style normalized importances (numerical + low-missing + mid-cardinality features score higher)
+- `confusionMatrix` — for classification, scaled by `primaryScore`
+- `predictions` — per-row holdout predictions with `actual`, `predicted`, `proba`, `correct`
+
+The Explain view renders these as: SHAP bar chart, beeswarm, confusion matrix heatmap, calibration curve, PDP curves, fairness audit (per-group accuracy + disparate impact ratio), and a full model card.
+
+### 4. Deployment
+
+The Deploy API generates real, runnable files:
+- `app.py` — FastAPI service with `/health`, `/predict`, `/predict/batch` endpoints, API key auth, Pydantic models
+- `Dockerfile` — python:3.11-slim, installs requirements, runs uvicorn
+- `docker-compose.yml` — service definition with healthcheck, restart policy, volume mount
+- `requirements.txt` — fastapi, uvicorn, pydantic, pandas, scikit-learn, joblib
+- `openapi.json` — OpenAPI 3.0 spec with ApiKeyAuth security scheme
+
+---
+
+## Model library
+
+### Tree ensembles (9)
+Random Forest, Extra Trees, Decision Tree, XGBoost, LightGBM, CatBoost, HistGradientBoosting, Gradient Boosting, AdaBoost
+
+### Linear models (5)
+Logistic Regression, Ridge, Lasso, ElasticNet, Linear Regression
+
+### Neighbors & SVM (2)
+KNN (distance-weighted), SVM (RBF kernel)
+
+### Neural & probabilistic (7)
+MLP (128,64), TabNet, NGBoost, Gaussian Naive Bayes, Explainable Boosting Machine, Balanced Random Forest, Easy Ensemble
+
+---
+
+## Design system
+
+AutoForge AI uses a **brutalist** design language:
+
+| Token | Value |
+|-------|-------|
+| `--background` | `#FAFAF7` (off-white paper) |
+| `--foreground` | `#0A0A0A` (near-black ink) |
+| `--primary` | `#FFE500` (electric sulfur yellow) |
+| `--accent` | `#FF3E00` (hot red — alerts/danger) |
+| `--border` | `#0A0A0A` (pure black borders) |
+| `--radius` | `0px` (no rounded corners anywhere) |
+| Border width | 2-3px solid |
+| Shadow | `4px 4px 0 0 var(--border)` (hard offset, no blur) |
+| Font | Geist Mono (monospace everywhere) |
+| Labels | Uppercase + 0.1-0.2em tracking |
+
+### Brutalist utilities (in `globals.css`)
+
+- `.brutal-shadow` / `.brutal-shadow-sm` / `.brutal-shadow-lg` — hard offset shadows
+- `.brutal-shadow-yellow` / `.brutal-shadow-red` — colored shadows
+- `.brutal-hover` — lift on hover (translate -2,-2 + bigger shadow, snap on click)
+- `.brutal-border` / `.brutal-border-thick` — heavy black borders
+- `.brutal-stripes` / `.brutal-stripes-yellow` — diagonal stripe backgrounds
+- `.brutal-grid` — dotted grid background
+- `.bg-grid` — harsh line grid background
+
+### Dark mode
+
+Dark mode inverts: black background (#0A0A0A), off-white text (#FAFAF7), borders become off-white. Yellow and red accents stay the same. Theme toggle is in the topbar.
+
+---
+
+## Development
+
+```bash
+# Lint
+bun run lint
+
+# Push schema changes to SQLite
+bun run db:push
+
+# Generate Prisma client
+bun run db:generate
+
+# Reset database
+bun run db:reset
+```
+
+### Key files to know
+
+- `src/lib/store.ts` — Zustand store. Holds project, dataset, models, experiment, deployment, theme. Persists across reload.
+- `src/lib/csv.ts` — CSV parser + EDA profiler + sample dataset generators.
+- `src/lib/ml-engine.ts` — 24-model library + scoring logic + ensemble builder + feature importance + confusion matrix.
+- `src/app/page.tsx` — View router. Landing is full-screen; everything else goes through `<AppShell>`.
+- `src/components/views/*` — The 10 application views. Each is self-contained.
+- `src/app/globals.css` — Brutalist design tokens + utility classes.
+
+### Adding a new view
+
+1. Add a `ViewKey` to `src/lib/types.ts`
+2. Add a nav item to `NAV` in `src/components/sidebar.tsx`
+3. Add a title/subtitle to `VIEW_TITLES` in `src/components/topbar.tsx`
+4. Create `src/components/views/<name>-view.tsx`
+5. Add the switch case in `src/app/page.tsx`
+
+---
+
+## Roadmap
+
+- [ ] Real Python ML workers via mini-service (replace deterministic simulation with actual sklearn/lightgbm training)
+- [ ] WebSocket-driven live training logs (instead of client-side simulation)
+- [ ] NextAuth.js OAuth integration (Google login)
+- [ ] Real MinIO/S3 object storage for datasets and artifacts
+- [ ] MLflow experiment tracking server
+- [ ] Prometheus + Grafana monitoring dashboards
+- [ ] Kubernetes manifests + Helm chart
+- [ ] Python SDK + CLI client
+- [ ] Multi-user collaboration + team workspaces
+- [ ] Scheduled retraining + drift-triggered retraining
+- [ ] Auto-generated model cards as PDF
+- [ ] Plugin architecture for custom models
+
+---
+
+## License
+
+MIT
