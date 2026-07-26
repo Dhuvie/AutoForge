@@ -51,7 +51,7 @@ export function LandingView() {
               <Hammer className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-bold text-[15px] tracking-tight">Nexus ML.AI</span>
+              <span className="font-bold text-[15px] tracking-tight">nexusml</span>
               <span className="text-[9px] text-muted-foreground uppercase tracking-[0.2em]">AUTOML PLATFORM</span>
             </div>
           </div>
@@ -121,7 +121,7 @@ export function LandingView() {
           </h1>
 
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            UPLOAD ANY STRUCTURED DATASET. Nexus ML PROFILES IT, ENGINEERS FEATURES,
+            UPLOAD ANY STRUCTURED DATASET. nexusml PROFILES IT, ENGINEERS FEATURES,
             TRAINS TWO DOZEN MODELS IN PARALLEL, OPTIMIZES HYPERPARAMETERS, BUILDS
             ENSEMBLES, EXPLAINS THE RESULT — AND SHIPS IT AS A DOCKERIZED REST API.
           </p>
@@ -332,7 +332,7 @@ export function LandingView() {
             onClick={start}
             className="gap-2 h-14 px-8 text-base bg-foreground text-background border-2 border-foreground hover:bg-background hover:text-foreground brutal-shadow brutal-hover font-bold uppercase tracking-wider"
           >
-            LAUNCH Nexus ML CONSOLE
+            LAUNCH nexusml CONSOLE
             <ArrowRight className="h-5 w-5" strokeWidth={3} />
           </Button>
         </div>
@@ -345,7 +345,7 @@ export function LandingView() {
             <div className="h-7 w-7 bg-primary border-2 border-border flex items-center justify-center">
               <Hammer className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
             </div>
-            <span className="font-bold">Nexus ML.AI</span>
+            <span className="font-bold">nexusml</span>
             <span className="text-muted-foreground">/</span>
             <span className="text-muted-foreground">OPEN-SOURCE AUTOML</span>
           </div>

@@ -23,7 +23,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <footer className="border-t-2 border-border mt-12 py-5 px-4 md:px-8 text-[11px] uppercase tracking-wider">
               <div className="mx-auto max-w-[1400px] flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-bold text-foreground">Nexus ML.AI</span>
+                  <span className="font-bold text-foreground">nexusml</span>
                   <span className="text-muted-foreground">/</span>
                   <span>V1.0.0-RC.1</span>
                   <span className="text-muted-foreground">/</span>

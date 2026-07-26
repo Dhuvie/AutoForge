@@ -11,17 +11,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nexus ML — Train the world's best ML models with one click",
+  title: "nexusml — Train the world's best ML models with one click",
   description: "Production-grade AutoML platform: upload a CSV, automatically profile, train 20+ models, optimize hyperparameters, ensemble, explain, and deploy — all in one click.",
-  keywords: ["AutoML", "Machine Learning", "Nexus ML", "MLOps", "Model Training", "XAI", "SHAP"],
-  authors: [{ name: "Nexus ML" }],
+  keywords: ["AutoML", "Machine Learning", "nexusml", "MLOps", "Model Training", "XAI", "SHAP"],
+  authors: [{ name: "nexusml" }],
   icons: {
     icon: "/logo.png",
   },
   openGraph: {
-    title: "Nexus ML",
+    title: "nexusml",
     description: "Train the world's best machine learning models with one click.",
-    siteName: "Nexus ML",
+    siteName: "nexusml",
     type: "website",
   },
 };

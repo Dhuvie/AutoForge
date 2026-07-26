@@ -111,7 +111,7 @@ export const useStore = create<NexusMLState>()(
       setTheme: (t) => set({ theme: t }),
     }),
     {
-      name: 'nexus-ml-session',
+      name: 'nexusml-session',
 
       partialize: (s) => ({
         view: s.view,

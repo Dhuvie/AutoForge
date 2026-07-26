@@ -44,7 +44,7 @@ export function Topbar() {
     <header className="h-16 border-b-2 border-border bg-background flex items-center gap-4 px-4 md:px-6 sticky top-0 z-30">
       <div className="flex items-center gap-2 min-w-0 flex-1">
         <div className="flex items-center gap-1.5 text-[12px]">
-          <span className="text-muted-foreground hidden sm:inline uppercase tracking-wider">Nexus ML</span>
+          <span className="text-muted-foreground hidden sm:inline uppercase tracking-wider">nexusml</span>
           <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/50 hidden sm:inline" strokeWidth={2.5} />
           {project ? (
             <span className="font-bold uppercase tracking-wide truncate max-w-[160px]">{project.name}</span>

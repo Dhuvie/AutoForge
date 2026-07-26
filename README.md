@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/screenshots/02_dashboard.png" alt="Nexus ML Dashboard" width="100%" />
+  <img src="public/screenshots/02_dashboard.png" alt="nexusml Dashboard" width="100%" />
 </div>
 
 
@@ -23,9 +23,9 @@
 
 ## Overview
 
-Nexus ML is an enterprise-grade, end-to-end AutoML platform that seamlessly guides users from raw CSV data ingestion to fully containerized model deployment in one continuous, zero-code workflow. 
+nexusml is an enterprise-grade, end-to-end AutoML platform that seamlessly guides users from raw CSV data ingestion to fully containerized model deployment in one continuous, zero-code workflow. 
 
-Engineered to democratize advanced machine learning, Nexus ML brings the power of production systems like H2O.ai, AutoGluon, and DataRobot directly into a lightning-fast browser environment. Backed by a high-performance Node.js architecture and a statistically grounded ML engine, the platform orchestrates complex data pipelines, trains expansive model libraries, and generates production-ready deployment artifacts with unprecedented speed.
+Engineered to democratize advanced machine learning, nexusml brings the power of production systems like H2O.ai, AutoGluon, and DataRobot directly into a lightning-fast browser environment. Backed by a high-performance Node.js architecture and a statistically grounded ML engine, the platform orchestrates complex data pipelines, trains expansive model libraries, and generates production-ready deployment artifacts with unprecedented speed.
 
 ### Enterprise-Grade Capabilities
 
@@ -33,7 +33,7 @@ Engineered to democratize advanced machine learning, Nexus ML brings the power o
 - **Extensive 24-Model Library** — Automatically trains and evaluates an arsenal of state-of-the-art algorithms including Random Forest, XGBoost, LightGBM, CatBoost, HistGradientBoosting, TabNet, NGBoost, Explainable Boosting Machines, Neural Networks (MLP), and Support Vector Machines. Every model is rigorously evaluated using 5-fold cross-validation and optimized via Optuna-style hyperparameter tuning.
 - **Advanced Auto-Ensembling** — Automatically constructs powerful stacked ensembles utilizing a logistic regression meta-learner over the top 3 performing base models. Supports advanced aggregation techniques including soft voting, probability blending, and rank averaging to maximize predictive performance.
 - **Comprehensive Explainability (XAI) Suite** — Demystifies complex "black box" models with industry-standard explainability techniques. Features interactive SHAP (SHapley Additive exPlanations) summary and beeswarm plots, high-resolution confusion matrices, probability calibration curves, Partial Dependence Plots (PDP), and rigorous fairness audits measuring disparate impact.
-- **Production-Ready Deployment Artifacts** — Bridging the gap between data science and DevOps, Nexus ML automatically generates a complete, deployable microservice for the winning model. This includes a fully documented FastAPI `app.py`, an optimized `Dockerfile`, a `docker-compose.yml` for orchestration, a strict `requirements.txt`, and an `openapi.json` specification complete with API key authentication.
+- **Production-Ready Deployment Artifacts** — Bridging the gap between data science and DevOps, nexusml automatically generates a complete, deployable microservice for the winning model. This includes a fully documented FastAPI `app.py`, an optimized `Dockerfile`, a `docker-compose.yml` for orchestration, a strict `requirements.txt`, and an `openapi.json` specification complete with API key authentication.
 - **Automated Experiment Reporting** — Instantly compiles exhaustive, presentation-ready reports detailing executive summaries, complete dataset statistical profiles, leaderboard rankings, hyperparameter configurations, XAI summaries, and architectural deployment recommendations. Available in Markdown, HTML, and plain-text formats.
 
 ---
@@ -184,7 +184,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## Project structure
 
 ```
-Nexus ML-ai/
+nexusml-ai/
 ├── src/
 │   ├── app/
 │   │   ├── api/
@@ -335,7 +335,7 @@ Generate the deployment package for a model: FastAPI service, Dockerfile, docker
   "modelName": "Stacked Ensemble (Top-3)",
   "endpoint": "/projects/proj_abc123/models/m_ensemble_.../predict",
   "apiKey": "af_omb4iz8y7b0uogumzqxi6pb865z...",
-  "dockerImage": "Nexus ML/m_ensemble_...:latest",
+  "dockerImage": "nexusml/m_ensemble_...:latest",
   "openApiUrl": "/projects/.../predict/docs",
   "status": "deployed",
   "createdAt": 1783100000000,
@@ -416,7 +416,7 @@ MLP (128,64), TabNet, NGBoost, Gaussian Naive Bayes, Explainable Boosting Machin
 
 ## Design system
 
-Nexus ML uses a **brutalist** design language:
+nexusml uses a **brutalist** design language:
 
 | Token | Value |
 |-------|-------|
