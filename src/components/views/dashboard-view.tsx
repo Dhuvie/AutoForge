@@ -66,7 +66,7 @@ export function DashboardView() {
               <span className="text-xs font-semibold uppercase tracking-wider text-primary">Workspace</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-1">
-              {project ? `Welcome back — ${project.name}` : 'Welcome to AutoForge AI'}
+              {project ? `Welcome back — ${project.name}` : 'Welcome to Nexus ML'}
             </h1>
             <p className="text-muted-foreground text-sm max-w-xl">
               {dataset

@@ -163,7 +163,7 @@ export function DeployView() {
 {`# 1. Run the container
 docker run -d \\
   -p 8000:8000 \\
-  -e AUTOFORGE_API_KEY=${deployment.apiKey} \\
+  -e Nexus ML_API_KEY=${deployment.apiKey} \\
   ${deployment.dockerImage}
 
 # 2. Health check

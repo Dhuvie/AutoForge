@@ -68,7 +68,7 @@ export function Sidebar() {
             <Hammer className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
           </div>
           <div className="flex flex-col leading-none">
-            <span className="font-bold text-[15px] tracking-tight">AUTOFORGE</span>
+            <span className="font-bold text-[15px] tracking-tight">Nexus ML</span>
             <span className="text-[9px] uppercase tracking-[0.2em] opacity-70">AUTOML PLATFORM</span>
           </div>
         </Link>

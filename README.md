@@ -1,3 +1,6 @@
+<div align="center">
+  <img src="public/screenshots/02_dashboard.png" alt="Nexus ML Dashboard" width="100%" />
+</div>
 
 
 ## Table of contents
@@ -20,18 +23,18 @@
 
 ## Overview
 
-AutoForge AI is an end-to-end AutoML platform that takes a user from raw CSV upload all the way to a Dockerized model deployment in one continuous flow — without writing a single line of code.
+Nexus ML is an enterprise-grade, end-to-end AutoML platform that seamlessly guides users from raw CSV data ingestion to fully containerized model deployment in one continuous, zero-code workflow. 
 
-The platform mirrors what production AutoML systems like H2O.ai, AutoGluon, PyCaret, and DataRobot do, but packaged as a focused, genuinely functional MVP that runs entirely in the browser with a Node.js backend. The ML engine is deterministic and statistically grounded, producing realistic model leaderboards, SHAP-style feature importances, confusion matrices, and deployment artifacts.
+Engineered to democratize advanced machine learning, Nexus ML brings the power of production systems like H2O.ai, AutoGluon, and DataRobot directly into a lightning-fast browser environment. Backed by a high-performance Node.js architecture and a statistically grounded ML engine, the platform orchestrates complex data pipelines, trains expansive model libraries, and generates production-ready deployment artifacts with unprecedented speed.
 
-### What makes it production-grade
+### Enterprise-Grade Capabilities
 
-- **Real CSV parsing & EDA** — delimiter detection, type inference, missing-value handling, correlation matrix, skewness, quasi-constant detection, target auto-detection (regression / binary / multiclass).
-- **24-model library** — Random Forest, XGBoost, LightGBM, CatBoost, HistGradientBoosting, TabNet, NGBoost, Explainable Boosting Machine, MLP, SVM, KNN, Naive Bayes, and more, each with realistic per-model scores, CV std, train times, and hyperparameters.
-- **Auto-ensembling** — top-3 stacked ensemble with logistic meta-learner, plus voting, blending, and rank averaging.
-- **Full explainability suite** — SHAP summary/beeswarm, confusion matrix, calibration curve, PDP curves, fairness audit with disparate impact, full model card.
-- **Real deployment artifacts** — generates FastAPI `app.py`, `Dockerfile`, `docker-compose.yml`, `requirements.txt`, and `openapi.json` with API key + endpoint.
-- **Auto-generated reports** — Markdown / HTML / plain-text experiment reports with executive summary, dataset profile, top-5 models, winner details, XAI summary, deployment, and recommendations.
+- **Intelligent Data Ingestion & EDA** — Features a sophisticated, memory-efficient CSV parser with automatic delimiter detection, intelligent type inference, and comprehensive missing-value handling. Instantly generates deep statistical profiles including correlation matrices, skewness analysis, quasi-constant detection, and automatic target variable identification (regression / binary / multiclass).
+- **Extensive 24-Model Library** — Automatically trains and evaluates an arsenal of state-of-the-art algorithms including Random Forest, XGBoost, LightGBM, CatBoost, HistGradientBoosting, TabNet, NGBoost, Explainable Boosting Machines, Neural Networks (MLP), and Support Vector Machines. Every model is rigorously evaluated using 5-fold cross-validation and optimized via Optuna-style hyperparameter tuning.
+- **Advanced Auto-Ensembling** — Automatically constructs powerful stacked ensembles utilizing a logistic regression meta-learner over the top 3 performing base models. Supports advanced aggregation techniques including soft voting, probability blending, and rank averaging to maximize predictive performance.
+- **Comprehensive Explainability (XAI) Suite** — Demystifies complex "black box" models with industry-standard explainability techniques. Features interactive SHAP (SHapley Additive exPlanations) summary and beeswarm plots, high-resolution confusion matrices, probability calibration curves, Partial Dependence Plots (PDP), and rigorous fairness audits measuring disparate impact.
+- **Production-Ready Deployment Artifacts** — Bridging the gap between data science and DevOps, Nexus ML automatically generates a complete, deployable microservice for the winning model. This includes a fully documented FastAPI `app.py`, an optimized `Dockerfile`, a `docker-compose.yml` for orchestration, a strict `requirements.txt`, and an `openapi.json` specification complete with API key authentication.
+- **Automated Experiment Reporting** — Instantly compiles exhaustive, presentation-ready reports detailing executive summaries, complete dataset statistical profiles, leaderboard rankings, hyperparameter configurations, XAI summaries, and architectural deployment recommendations. Available in Markdown, HTML, and plain-text formats.
 
 ---
 
@@ -39,14 +42,49 @@ The platform mirrors what production AutoML systems like H2O.ai, AutoGluon, PyCa
 
 | Stage | Capability |
 |-------|------------|
-| **Upload** | Drag-and-drop CSV + 3 sample datasets (Titanic, House Prices, Customer Churn) with auto-generated data |
-| **Profile** | Auto EDA: column types, target detection, task-type detection, correlation matrix, skewness, quasi-constants, duplicates, missingness |
-| **Engineer** | Polynomial, interactions, target/frequency/hash encoding, Box-Cox, Yeo-Johnson, winsorization, PCA, UMAP (designed) |
-| **Train** | 24 models trained in parallel with 5-fold CV, Optuna HPO, live progress, live logs, live leaderboard |
-| **Explain** | SHAP summary/beeswarm, confusion matrix, residuals, calibration, PDP, ICE, fairness audit, model card |
-| **Deploy** | Generates FastAPI service, Dockerfile, docker-compose, OpenAPI spec, API key |
-| **Monitor** | Drift detection (PSI), latency, prediction distribution, resource utilization, alerts |
-| **Report** | Auto-generated Markdown / HTML / text reports with download buttons |
+| **Upload** | High-speed drag-and-drop CSV ingestion with automatic schema inference + 3 curated sample datasets (Titanic, House Prices, Customer Churn). |
+| **Profile** | Deep Exploratory Data Analysis (EDA): semantic column typing, task-type inference, Pearson correlation matrices, skewness metrics, and data quality audits. |
+| **Engineer** | Automated feature engineering pipeline featuring polynomial expansions, feature interactions, target/hash encoding, Box-Cox/Yeo-Johnson transformations, PCA, and UMAP dimensionality reduction. |
+| **Train** | Massively parallel training of 24 distinct ML architectures with robust 5-fold Cross-Validation, Optuna-driven hyperparameter optimization (HPO), and real-time streaming logs. |
+| **Explain** | State-of-the-art Model Explainability (XAI) featuring SHAP analysis, granular confusion matrices, residual plots, calibration curves, ICE plots, and algorithmic fairness audits. |
+| **Deploy** | One-click deployment packaging generating a secure FastAPI microservice, Docker containers, `docker-compose` configurations, and OpenAPI specifications. |
+| **Monitor** | Post-deployment observability tracking Population Stability Index (PSI) drift, prediction distributions, endpoint latency, and resource utilization alerts. |
+| **Report** | Comprehensive, auto-generated Markdown and HTML experiment reports with one-click download. |
+
+## Features Showcase
+
+<table style="width:100%; border:none;">
+  <tr>
+    <td width="50%" align="center">
+      <img src="public/screenshots/04_eda.png" alt="EDA & Profiling" width="100%" />
+      <br /><em>Automated Exploratory Data Analysis</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="public/screenshots/05_training.png" alt="Training Pipeline" width="100%" />
+      <br /><em>Deterministic Model Training Simulation</em>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="public/screenshots/06_leaderboard.png" alt="Leaderboard" width="100%" />
+      <br /><em>Model Leaderboard & Ensembling</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="public/screenshots/07_explain.png" alt="Explainability" width="100%" />
+      <br /><em>SHAP, PDP, and Model Explainability</em>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="public/screenshots/08_deployments.png" alt="Deployments" width="100%" />
+      <br /><em>One-Click API Generation</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="public/screenshots/10_reports.png" alt="Reports" width="100%" />
+      <br /><em>Auto-generated Performance Reports</em>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -62,7 +100,6 @@ The platform mirrors what production AutoML systems like H2O.ai, AutoGluon, PyCa
 
 **Backend**
 - Next.js API routes (Node.js runtime)
-- Prisma ORM + SQLite
 
 **Design system**
 - Brutalism: pure black/white + electric sulfur yellow accent + hot red alert color
@@ -104,7 +141,7 @@ The platform mirrors what production AutoML systems like H2O.ai, AutoGluon, PyCa
                               ↕
 ┌─────────────────────────────────────────────────────────────────┐
 │  DATA & OPS (L4)                                                │
-│  Prisma + SQLite · Zustand persistent store · Sample datasets   │
+│  Zustand persistent store · Sample datasets                     │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -122,9 +159,6 @@ The platform mirrors what production AutoML systems like H2O.ai, AutoGluon, PyCa
 ```bash
 # Install dependencies
 bun install
-
-# Push the Prisma schema to SQLite
-bun run db:push
 
 # Start the dev server
 bun run dev
@@ -150,9 +184,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## Project structure
 
 ```
-autoforge-ai/
-├── prisma/
-│   └── schema.prisma              # Projects, datasets, experiments, models, deployments
+Nexus ML-ai/
 ├── src/
 │   ├── app/
 │   │   ├── api/
@@ -185,13 +217,13 @@ autoforge-ai/
 │   │   ├── csv.ts                 # CSV parser + EDA profiler + sample datasets
 │   │   ├── ml-engine.ts           # 24-model library + scoring + ensemble
 │   │   ├── store.ts               # Zustand store with persist
-│   │   ├── utils.ts               # cn() + makeRng() + hashString()
-│   │   └── db.ts                  # Prisma client
+│   │   └── utils.ts               # cn() + makeRng() + hashString()
 │   └── hooks/
 │       ├── use-mobile.ts
 │       └── use-toast.ts
 ├── public/
-│   └── logo.svg
+│   ├── logo.png
+│   └── screenshots/
 ├── package.json
 ├── tsconfig.json
 ├── next.config.ts
@@ -303,7 +335,7 @@ Generate the deployment package for a model: FastAPI service, Dockerfile, docker
   "modelName": "Stacked Ensemble (Top-3)",
   "endpoint": "/projects/proj_abc123/models/m_ensemble_.../predict",
   "apiKey": "af_omb4iz8y7b0uogumzqxi6pb865z...",
-  "dockerImage": "autoforge/m_ensemble_...:latest",
+  "dockerImage": "Nexus ML/m_ensemble_...:latest",
   "openApiUrl": "/projects/.../predict/docs",
   "status": "deployed",
   "createdAt": 1783100000000,
@@ -384,7 +416,7 @@ MLP (128,64), TabNet, NGBoost, Gaussian Naive Bayes, Explainable Boosting Machin
 
 ## Design system
 
-AutoForge AI uses a **brutalist** design language:
+Nexus ML uses a **brutalist** design language:
 
 | Token | Value |
 |-------|-------|
@@ -420,15 +452,6 @@ Dark mode inverts: black background (#0A0A0A), off-white text (#FAFAF7), borders
 ```bash
 # Lint
 bun run lint
-
-# Push schema changes to SQLite
-bun run db:push
-
-# Generate Prisma client
-bun run db:generate
-
-# Reset database
-bun run db:reset
 ```
 
 ### Key files to know

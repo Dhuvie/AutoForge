@@ -32,7 +32,7 @@ function buildFastApiService(model: ModelResult, dataset: ParsedDataset): string
   }).join('\n');
 
   return `"""
-AutoForge — Automated inference service
+Nexus ML — Automated inference service
 Model: ${model.name}
 Task: ${model.taskType}
 Generated: ${new Date().toISOString()}
@@ -46,10 +46,10 @@ import os
 import pandas as pd
 
 MODEL_PATH = os.environ.get("MODEL_PATH", "/models/${model.id}.joblib")
-API_KEY = os.environ.get("AUTOFORGE_API_KEY", "${genApiKey()}")
+API_KEY = os.environ.get("Nexus ML_API_KEY", "${genApiKey()}")
 
 app = FastAPI(
-    title="AutoForge AI — ${model.name}",
+    title="Nexus ML — ${model.name}",
     description="Auto-generated inference endpoint for project ${dataset.filename}",
     version="1.0.0",
 )
@@ -98,7 +98,7 @@ def predict_batch(items: List[PredictionRequest], api_key: str = Security(api_ke
 }
 
 function buildDockerfile(model: ModelResult): string {
-  return `# AutoForge — Production Dockerfile
+  return `# Nexus ML — Production Dockerfile
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -121,14 +121,14 @@ CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
 function buildDockerCompose(model: ModelResult): string {
   return `version: "3.9"
 services:
-  autoforge-model:
+  Nexus ML-model:
     build: .
-    image: autoforge/${model.id}:latest
-    container_name: autoforge-${model.id}
+    image: Nexus ML/${model.id}:latest
+    container_name: Nexus ML-${model.id}
     ports:
       - "8000:8000"
     environment:
-      - AUTOFORGE_API_KEY=\${AUTOFORGE_API_KEY}
+      - Nexus ML_API_KEY=\${Nexus ML_API_KEY}
       - MODEL_PATH=/models/${model.id}.joblib
     volumes:
       - ./model.joblib:/models/${model.id}.joblib:ro
@@ -168,7 +168,7 @@ export async function POST(req: NextRequest) {
       'requirements.txt': buildRequirements(),
       'openapi.json': JSON.stringify({
         openapi: '3.0.0',
-        info: { title: `AutoForge — ${body.model.name}`, version: '1.0.0' },
+        info: { title: `Nexus ML — ${body.model.name}`, version: '1.0.0' },
         paths: {
           '/health': { get: { summary: 'Health check', responses: { '200': { description: 'OK' } } } },
           '/predict': {
@@ -198,7 +198,7 @@ export async function POST(req: NextRequest) {
       modelName: body.model.name,
       endpoint,
       apiKey,
-      dockerImage: `autoforge/${body.model.id}:latest`,
+      dockerImage: `Nexus ML/${body.model.id}:latest`,
       openApiUrl: `${endpoint}/docs`,
       status: 'deployed' as const,
       createdAt: Date.now(),

@@ -21,7 +21,7 @@ export interface ProjectMeta {
   createdAt: number;
 }
 
-interface AutoForgeState {
+interface NexusMLState {
 
   view: ViewKey;
   setView: (v: ViewKey) => void;
@@ -62,7 +62,7 @@ interface AutoForgeState {
   setTheme: (t: 'light' | 'dark') => void;
 }
 
-export const useStore = create<AutoForgeState>()(
+export const useStore = create<NexusMLState>()(
   persist(
     (set, get) => ({
       view: 'landing',
@@ -111,7 +111,7 @@ export const useStore = create<AutoForgeState>()(
       setTheme: (t) => set({ theme: t }),
     }),
     {
-      name: 'autoforge-session',
+      name: 'nexus-ml-session',
 
       partialize: (s) => ({
         view: s.view,
